@@ -111,15 +111,15 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-4">Contact</h3>
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-sm text-gray-400">
-                <FiMail className="w-4 h-4 flex-shrink-0" />
+                <FiMail className="w-4 h-4 shrink-0" />
                 <span>support@buildbridge.dev</span>
               </li>
               <li className="flex items-center gap-2 text-sm text-gray-400">
-                <FiPhone className="w-4 h-4 flex-shrink-0" />
+                <FiPhone className="w-4 h-4 shrink-0" />
                 <span>+880 1700-000000</span>
               </li>
               <li className="flex items-start gap-2 text-sm text-gray-400">
-                <FiMapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                <FiMapPin className="w-4 h-4 shrink-0 mt-0.5" />
                 <span>Dhaka, Bangladesh</span>
               </li>
             </ul>

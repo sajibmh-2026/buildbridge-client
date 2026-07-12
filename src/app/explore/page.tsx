@@ -117,7 +117,7 @@ function ExploreContent() {
   return (
     <Layout>
       {/* Hero Header */}
-      <section className="bg-gradient-to-br from-indigo-600 via-indigo-700 to-emerald-600 text-white pt-24 pb-12">
+      <section className="bg-linear-to-br from-indigo-600 via-indigo-700 to-emerald-600 text-white pt-24 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl md:text-4xl font-bold mb-3">Explore Projects</h1>
           <p className="text-indigo-100 text-lg mb-6">

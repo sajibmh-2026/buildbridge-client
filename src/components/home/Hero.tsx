@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-[70vh] flex items-center overflow-hidden">
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-emerald-50" />
+      <div className="absolute inset-0 bg-linear-to-br from-indigo-50 via-white to-emerald-50" />
       <div className="absolute top-20 right-10 w-72 h-72 bg-indigo-200/30 rounded-full blur-3xl" />
       <div className="absolute bottom-20 left-10 w-96 h-96 bg-emerald-200/20 rounded-full blur-3xl" />
 

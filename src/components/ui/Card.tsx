@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
+import Image from "next/image";
 import { cn } from "@/utils";
 
 interface CardProps {
@@ -31,7 +32,7 @@ export function CardImage({ src, alt, className }: { src: string; alt: string; c
     return (
       <div
         className={cn(
-          "w-full h-48 bg-gradient-to-br from-indigo-100 to-emerald-100 flex items-center justify-center",
+          "w-full h-48 bg-linear-to-br from-indigo-100 to-emerald-100 flex items-center justify-center",
           className
         )}
       >
@@ -41,12 +42,15 @@ export function CardImage({ src, alt, className }: { src: string; alt: string; c
   }
 
   return (
-    <img
-      src={src}
-      alt={alt}
-      className={cn("w-full h-48 object-cover", className)}
-      loading="lazy"
-    />
+    <div className={cn("relative w-full h-48", className)}>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-cover"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      />
+    </div>
   );
 }
 

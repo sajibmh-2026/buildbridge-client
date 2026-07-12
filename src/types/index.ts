@@ -9,3 +9,11 @@ export {
 } from "./project";
 export { type IApplication, type ApplicationStatus, type IApplicationCreateInput } from "./application";
 export { type ApiResponse, type PaginatedResponse } from "./api";
+export {
+  type IDashboardStats,
+  type IChartData,
+  type IMonthlyData,
+  type IDashboardData,
+  type IAdminStats,
+  type IAdminDashboardData,
+} from "./dashboard";

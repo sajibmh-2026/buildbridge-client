@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IRegisterInput, ILoginInput, IAuthResponse, IProfileResponse } from "@/types";
+import { IRegisterInput, ILoginInput, IAuthResponse, IProfileResponse, ApiResponse, IUser } from "@/types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
 
@@ -34,6 +34,20 @@ export const authService = {
 
   async getProfile(): Promise<IProfileResponse> {
     const response = await api.get<IProfileResponse>("/auth/profile");
+    return response.data;
+  },
+
+  async updateProfile(data: {
+    name?: string;
+    photo?: string;
+    bio?: string;
+    location?: string;
+    website?: string;
+    github?: string;
+    linkedin?: string;
+    skills?: string[];
+  }): Promise<ApiResponse<IUser>> {
+    const response = await api.patch<ApiResponse<IUser>>("/auth/profile", data);
     return response.data;
   },
 

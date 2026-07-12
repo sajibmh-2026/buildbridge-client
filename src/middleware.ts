@@ -8,6 +8,10 @@ const protectedRoutes = [
   "/projects/manage",
   "/profile",
 ];
+
+// Routes that require admin role (checked client-side via RoleGuard)
+const adminRoutes = ["/admin"];
+
 const authRoutes = ["/login", "/register"];
 
 export function middleware(request: NextRequest) {
@@ -19,14 +23,19 @@ export function middleware(request: NextRequest) {
   const isProtectedRoute = protectedRoutes.some((route) =>
     pathname.startsWith(route)
   );
+  const isAdminRoute = adminRoutes.some((route) =>
+    pathname.startsWith(route)
+  );
   const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route));
 
-  if (isProtectedRoute && !token) {
+  // Redirect to login if accessing protected/admin route without token
+  if ((isProtectedRoute || isAdminRoute) && !token) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("redirect", pathname);
     return NextResponse.redirect(loginUrl);
   }
 
+  // Redirect authenticated users away from auth pages
   if (isAuthRoute && token) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
@@ -41,6 +50,7 @@ export const config = {
     "/projects/manage/:path*",
     "/projects/:path*/edit",
     "/profile/:path*",
+    "/admin/:path*",
     "/login",
     "/register",
   ],

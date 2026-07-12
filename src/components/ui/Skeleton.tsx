@@ -38,7 +38,7 @@ export function TableSkeleton({ rows = 5 }: { rows?: number }) {
     <div className="space-y-3">
       {Array.from({ length: rows }).map((_, i) => (
         <div key={i} className="flex items-center gap-4 p-4 bg-white rounded-lg border">
-          <Skeleton className="h-10 w-10 rounded-full flex-shrink-0" />
+          <Skeleton className="h-10 w-10 rounded-full shrink-0" />
           <Skeleton className="h-4 flex-1" />
           <Skeleton className="h-4 w-24" />
           <Skeleton className="h-8 w-20 rounded-lg" />

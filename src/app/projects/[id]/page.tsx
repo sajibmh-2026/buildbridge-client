@@ -5,11 +5,13 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Layout from "@/components/layout/Layout";
 import Button from "@/components/ui/Button";
+import ConfirmModal from "@/components/ui/ConfirmModal";
 import { useAuth } from "@/context/AuthContext";
 import { projectService } from "@/services/projectService";
 import { applicationService } from "@/services/applicationService";
 import { IProject } from "@/types";
 import { toast } from "sonner";
+import Image from "next/image";
 import {
   formatDate,
   getDifficultyColor,
@@ -46,6 +48,8 @@ export default function ProjectDetailPage() {
   const [githubProfile, setGithubProfile] = useState("");
   const [portfolioUrl, setPortfolioUrl] = useState("");
   const [hasApplied, setHasApplied] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const projectId = params.id as string;
 
@@ -120,9 +124,7 @@ export default function ProjectDetailPage() {
   };
 
   const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete this project? This action cannot be undone."))
-      return;
-
+    setDeleting(true);
     try {
       const response = await projectService.deleteProject(projectId);
       if (response.success) {
@@ -133,6 +135,9 @@ export default function ProjectDetailPage() {
       }
     } catch {
       toast.error("Failed to delete project");
+    } finally {
+      setDeleting(false);
+      setShowDeleteModal(false);
     }
   };
 
@@ -151,6 +156,8 @@ export default function ProjectDetailPage() {
   const owner =
     typeof project.owner === "object" ? project.owner : null;
   const isOwner = user && owner && user._id === owner._id;
+  const isAdmin = user?.role === "admin";
+  const canManage = isOwner || isAdmin;
   const isOpen = project.status === "open";
   const isFull =
     project.maxMembers &&
@@ -160,7 +167,7 @@ export default function ProjectDetailPage() {
   return (
     <Layout>
       {/* Hero Banner */}
-      <section className="bg-gradient-to-br from-indigo-600 via-indigo-700 to-emerald-600 pt-24 pb-8">
+      <section className="bg-linear-to-br from-indigo-600 via-indigo-700 to-emerald-600 pt-24 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <button
             onClick={() => router.back()}
@@ -199,14 +206,14 @@ export default function ProjectDetailPage() {
 
             {/* Action Buttons */}
             <div className="flex items-center gap-3">
-              {isOwner ? (
+              {canManage ? (
                 <>
                   <Link href={`/projects/${projectId}/edit`}>
                     <Button variant="secondary" size="sm">
                       <FiEdit3 className="mr-2 w-4 h-4" /> Edit
                     </Button>
                   </Link>
-                  <Button variant="danger" size="sm" onClick={handleDelete}>
+                  <Button variant="danger" size="sm" onClick={() => setShowDeleteModal(true)}>
                     <FiTrash2 className="mr-2 w-4 h-4" /> Delete
                   </Button>
                 </>
@@ -238,11 +245,12 @@ export default function ProjectDetailPage() {
           <div className="lg:col-span-2 space-y-6">
             {/* Project Image */}
             {project.image && (
-              <div className="rounded-xl overflow-hidden">
-                <img
+              <div className="relative rounded-xl overflow-hidden h-64 md:h-80">
+                <Image
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-64 md:h-80 object-cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
             )}
@@ -448,10 +456,12 @@ export default function ProjectDetailPage() {
                 <h3 className="font-semibold text-gray-900 mb-4">Project Owner</h3>
                 <div className="flex items-center gap-3 mb-3">
                   {owner.photo ? (
-                    <img
+                    <Image
                       src={owner.photo}
                       alt={owner.name}
-                      className="w-12 h-12 rounded-full object-cover"
+                      width={48}
+                      height={48}
+                      className="rounded-full object-cover"
                     />
                   ) : (
                     <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center">
@@ -501,6 +511,17 @@ export default function ProjectDetailPage() {
           </aside>
         </div>
       </div>
+
+      <ConfirmModal
+        open={showDeleteModal}
+        title="Delete Project"
+        message="Are you sure you want to delete this project? This action cannot be undone and all applications will be removed."
+        confirmLabel="Delete Project"
+        variant="danger"
+        onConfirm={handleDelete}
+        onCancel={() => setShowDeleteModal(false)}
+        loading={deleting}
+      />
     </Layout>
   );
 }
