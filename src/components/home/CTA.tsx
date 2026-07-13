@@ -24,8 +24,9 @@ export default function CTA() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link href="/register">
             <Button
+              variant="ghost"
               size="lg"
-              className="bg-white text-indigo-600 hover:bg-gray-100 focus:ring-white shadow-lg w-full sm:w-auto"
+              className="bg-white text-indigo-600 hover:bg-gray-100 focus:ring-white shadow-lg hover:shadow-xl w-full sm:w-auto"
             >
               Get Started Free
               <FiArrowRight className="ml-2 w-5 h-5" />

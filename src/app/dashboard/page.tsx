@@ -33,6 +33,7 @@ import {
   FiChevronRight,
 } from "react-icons/fi";
 import { cn, formatDate, getDifficultyColor } from "@/utils";
+import Layout from "@/components/layout/Layout";
 
 type TabKey = "overview" | "projects" | "applications" | "admin";
 
@@ -43,6 +44,7 @@ export default function DashboardPage() {
   const [adminData, setAdminData] = useState<IAdminDashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [adminLoading, setAdminLoading] = useState(false);
+  const [adminError, setAdminError] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const fetchDashboard = useCallback(async () => {
@@ -65,12 +67,23 @@ export default function DashboardPage() {
     if (user?.role !== "admin") return;
     try {
       setAdminLoading(true);
+      setAdminError(null);
       const response = await dashboardService.getAdminStats();
       if (response.success && response.data) {
         setAdminData(response.data);
+      } else {
+        setAdminError("Failed to load admin data");
       }
-    } catch {
-      console.error("Failed to load admin data");
+    } catch (err: unknown) {
+      // Extract meaningful error from Axios or native Error
+      let message = "Failed to load admin data";
+      if (err && typeof err === "object" && "response" in err) {
+        const axiosErr = err as { response?: { data?: { message?: string; error?: string } } };
+        message = axiosErr.response?.data?.message || axiosErr.response?.data?.error || message;
+      } else if (err instanceof Error) {
+        message = err.message;
+      }
+      setAdminError(message);
     } finally {
       setAdminLoading(false);
     }
@@ -101,26 +114,29 @@ export default function DashboardPage() {
   const visibleTabs = tabs.filter((tab) => !tab.adminOnly || user?.role === "admin");
 
   if (loading) {
-    return <DashboardSkeleton />;
+    return <Layout><DashboardSkeleton /></Layout>;
   }
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-500 mb-4">{error}</p>
-          <Button onClick={fetchDashboard} variant="primary">
-            Try Again
-          </Button>
+      <Layout>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-red-500 mb-4">{error}</p>
+            <Button onClick={fetchDashboard} variant="primary">
+              Try Again
+            </Button>
+          </div>
         </div>
-      </div>
+      </Layout>
     );
   }
 
   const stats = dashboardData?.stats;
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20 pb-12">
+    <Layout showFooter={false}>
+    <div className="min-h-screen bg-gray-50 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
@@ -180,11 +196,12 @@ export default function DashboardPage() {
 
         {activeTab === "admin" && user?.role === "admin" && (
           <RoleGuard allowedRoles={["admin"]}>
-            <AdminTab data={adminData} loading={adminLoading} />
+            <AdminTab data={adminData} loading={adminLoading} error={adminError} onRetry={fetchAdminData} />
           </RoleGuard>
         )}
       </div>
     </div>
+    </Layout>
   );
 }
 
@@ -540,9 +557,13 @@ function ApplicationsTab({ applications }: { applications: IApplication[] }) {
 function AdminTab({
   data,
   loading,
+  error,
+  onRetry,
 }: {
   data: IAdminDashboardData | null;
   loading: boolean;
+  error: string | null;
+  onRetry: () => void;
 }) {
   if (loading) {
     return (
@@ -559,10 +580,13 @@ function AdminTab({
     );
   }
 
-  if (!data) {
+  if (error || !data) {
     return (
-      <div className="text-center py-12 text-gray-500">
-        Failed to load admin data
+      <div className="text-center py-12">
+        <p className="text-red-500 mb-4">{error || "Failed to load admin data"}</p>
+        <Button onClick={onRetry} variant="primary">
+          Try Again
+        </Button>
       </div>
     );
   }
@@ -773,7 +797,7 @@ function AdminTab({
 /* ───────────────────── Dashboard Skeleton ───────────────────── */
 function DashboardSkeleton() {
   return (
-    <div className="min-h-screen bg-gray-50 pt-20 pb-12">
+    <div className="min-h-screen bg-gray-50 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <div className="h-8 bg-gray-200 rounded w-64 mb-2 animate-pulse" />

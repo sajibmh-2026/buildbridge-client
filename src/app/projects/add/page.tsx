@@ -64,9 +64,18 @@ export default function AddProjectPage() {
   };
 
   const canNext = () => {
-    if (step === 1) return title.length >= 3 && shortDescription.length >= 10 && description.length >= 20;
+    if (step === 1) return title.trim().length >= 3 && shortDescription.trim().length >= 10 && description.trim().length >= 20;
     if (step === 2) return requiredSkills.length > 0;
     return true;
+  };
+
+  const stepErrors = () => {
+    if (step !== 1) return null;
+    const errors: string[] = [];
+    if (title.trim().length > 0 && title.trim().length < 3) errors.push("Title needs at least 3 characters");
+    if (shortDescription.trim().length > 0 && shortDescription.trim().length < 10) errors.push("Short description needs at least 10 characters");
+    if (description.trim().length > 0 && description.trim().length < 20) errors.push("Full description needs at least 20 characters");
+    return errors.length > 0 ? errors : null;
   };
 
   const handleSubmit = async () => {
@@ -164,6 +173,9 @@ export default function AddProjectPage() {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
+                {title.trim().length > 0 && title.trim().length < 3 && (
+                  <p className="text-xs text-red-500 -mt-3">Minimum 3 characters ({title.trim().length}/3)</p>
+                )}
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1.5">
@@ -178,6 +190,9 @@ export default function AddProjectPage() {
                     className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
                   />
                   <p className="text-xs text-gray-400 mt-1">{shortDescription.length}/200</p>
+                  {shortDescription.trim().length > 0 && shortDescription.trim().length < 10 && (
+                    <p className="text-xs text-red-500">Minimum 10 characters ({shortDescription.trim().length}/10)</p>
+                  )}
                 </div>
 
                 <div>
@@ -192,6 +207,9 @@ export default function AddProjectPage() {
                     className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm resize-none"
                   />
                   <p className="text-xs text-gray-400 mt-1">{description.length} characters (min 20)</p>
+                  {description.trim().length > 0 && description.trim().length < 20 && (
+                    <p className="text-xs text-red-500">Minimum 20 characters ({description.trim().length}/20)</p>
+                  )}
                 </div>
 
                 <div>
@@ -427,9 +445,18 @@ export default function AddProjectPage() {
               )}
 
               {step < 3 ? (
-                <Button onClick={() => setStep(step + 1)} disabled={!canNext()}>
-                  Next <FiArrowRight className="ml-2 w-4 h-4" />
-                </Button>
+                <div className="flex flex-col items-end gap-1">
+                  {stepErrors() && (
+                    <div className="text-xs text-red-500 text-right">
+                      {stepErrors()!.map((err, i) => (
+                        <p key={i}>⚠ {err}</p>
+                      ))}
+                    </div>
+                  )}
+                  <Button onClick={() => setStep(step + 1)} disabled={!canNext()}>
+                    Next <FiArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                </div>
               ) : (
                 <Button onClick={handleSubmit} loading={loading} size="lg">
                   <FiCheck className="mr-2 w-4 h-4" /> Create Project
