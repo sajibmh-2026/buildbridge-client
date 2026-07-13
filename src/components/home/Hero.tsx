@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Button from "@/components/ui/Button";
+import AnimateInView from "@/components/ui/AnimateInView";
 import { FiArrowRight, FiUsers, FiFolder, FiZap } from "react-icons/fi";
 import { SiTypescript } from "react-icons/si";
 
@@ -17,35 +18,43 @@ export default function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium">
-              <FiZap className="w-4 h-4" />
-              <span>Developer Collaboration Platform</span>
-            </div>
+            <AnimateInView animation="fade-up" delay={0}>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium">
+                <FiZap className="w-4 h-4" />
+                <span>Developer Collaboration Platform</span>
+              </div>
+            </AnimateInView>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-              Build Together,{" "}
-              <span className="text-indigo-600">Ship Faster</span>
-            </h1>
+            <AnimateInView animation="fade-up" delay={100}>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                Build Together,{" "}
+                <span className="text-indigo-600">Ship Faster</span>
+              </h1>
+            </AnimateInView>
 
-            <p className="text-lg text-gray-600 leading-relaxed max-w-lg">
-              Discover exciting projects, find talented teammates, and bring your ideas
-              to life. BuildBridge connects developers with complementary skills to
-              create amazing things.
-            </p>
+            <AnimateInView animation="fade-up" delay={200}>
+              <p className="text-lg text-gray-600 leading-relaxed max-w-lg">
+                Discover exciting projects, find talented teammates, and bring your ideas
+                to life. BuildBridge connects developers with complementary skills to
+                create amazing things.
+              </p>
+            </AnimateInView>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/explore">
-                <Button size="lg" className="w-full sm:w-auto">
-                  Explore Projects
-                  <FiArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              </Link>
-              <Link href="/register">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                  Start Building
-                </Button>
-              </Link>
-            </div>
+            <AnimateInView animation="fade-up" delay={300}>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link href="/explore">
+                  <Button size="lg" className="w-full sm:w-auto">
+                    Explore Projects
+                    <FiArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </Link>
+                <Link href="/register">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                    Start Building
+                  </Button>
+                </Link>
+              </div>
+            </AnimateInView>
 
             {/* Quick Stats */}
             <div className="flex items-center gap-8 pt-4">

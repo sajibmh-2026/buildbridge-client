@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Card, { CardImage, CardBody } from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
+import AnimateInView from "@/components/ui/AnimateInView";
 import { FiArrowRight } from "react-icons/fi";
 import { getDifficultyColor, formatCategoryName } from "@/utils";
 
@@ -73,28 +74,31 @@ export default function FeaturedProjects() {
   return (
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-end justify-between mb-12">
-          <div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Featured Projects
-            </h2>
-            <p className="text-gray-600 max-w-xl">
-              Discover the most popular projects looking for talented contributors.
-              Find your next collaboration opportunity.
-            </p>
+        <AnimateInView animation="fade-up">
+          <div className="flex items-end justify-between mb-12">
+            <div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                Featured Projects
+              </h2>
+              <p className="text-gray-600 max-w-xl">
+                Discover the most popular projects looking for talented contributors.
+                Find your next collaboration opportunity.
+              </p>
+            </div>
+            <Link href="/explore" className="hidden sm:flex">
+              <Button variant="outline" size="sm">
+                View All
+                <FiArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </Link>
           </div>
-          <Link href="/explore" className="hidden sm:flex">
-            <Button variant="outline" size="sm">
-              View All
-              <FiArrowRight className="ml-2 w-4 h-4" />
-            </Button>
-          </Link>
-        </div>
+        </AnimateInView>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {FEATURED_PROJECTS.map((project) => (
-            <Link key={project._id} href="/explore">
-              <Card hover className="h-full flex flex-col">
+          {FEATURED_PROJECTS.map((project, index) => (
+            <AnimateInView key={project._id} animation="fade-up" delay={index * 80}>
+              <Link href="/explore">
+                <Card hover className="h-full flex flex-col">
                 <CardImage src={project.image} alt={project.title} />
                 <CardBody className="flex-1 flex flex-col">
                   <div className="flex items-center gap-2 mb-3">
@@ -154,6 +158,7 @@ export default function FeaturedProjects() {
                 </CardBody>
               </Card>
             </Link>
+            </AnimateInView>
           ))}
         </div>
 

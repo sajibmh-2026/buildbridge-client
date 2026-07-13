@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Button from "@/components/ui/Button";
+import AnimateInView from "@/components/ui/AnimateInView";
 import { FiArrowRight } from "react-icons/fi";
 
 export default function CTA() {
@@ -13,15 +14,20 @@ export default function CTA() {
       </div>
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-          Ready to Build Something Amazing?
-        </h2>
-        <p className="text-lg text-indigo-100 mb-8 max-w-2xl mx-auto leading-relaxed">
-          Join thousands of developers who are already collaborating on
-          BuildBridge. Create your profile, find your team, and start building
-          today.
-        </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <AnimateInView animation="fade-up">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+            Ready to Build Something Amazing?
+          </h2>
+        </AnimateInView>
+        <AnimateInView animation="fade-up" delay={100}>
+          <p className="text-lg text-indigo-100 mb-8 max-w-2xl mx-auto leading-relaxed">
+            Join thousands of developers who are already collaborating on
+            BuildBridge. Create your profile, find your team, and start building
+            today.
+          </p>
+        </AnimateInView>
+        <AnimateInView animation="fade-up" delay={200}>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link href="/register">
             <Button
               variant="ghost"
@@ -42,6 +48,7 @@ export default function CTA() {
             </Button>
           </Link>
         </div>
+        </AnimateInView>
       </div>
     </section>
   );

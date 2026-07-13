@@ -1,28 +1,31 @@
 "use client";
 
 import { FiStar } from "react-icons/fi";
+import AnimateInView from "@/components/ui/AnimateInView";
 import { TESTIMONIALS } from "@/constants";
 
 export default function Testimonials() {
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            What Developers Say
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Hear from developers who have found their perfect teams and built
-            amazing projects through BuildBridge.
-          </p>
-        </div>
+        <AnimateInView animation="fade-up">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              What Developers Say
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Hear from developers who have found their perfect teams and built
+              amazing projects through BuildBridge.
+            </p>
+          </div>
+        </AnimateInView>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {TESTIMONIALS.map((testimonial) => (
-            <div
-              key={testimonial.id}
-              className="bg-gray-50 rounded-xl p-6 border border-gray-100 hover:border-indigo-200 hover:shadow-md transition-all duration-300"
-            >
+          {TESTIMONIALS.map((testimonial, index) => (
+            <AnimateInView key={testimonial.id} animation="fade-up" delay={index * 100}>
+              <div
+                className="bg-gray-50 rounded-xl p-6 border border-gray-100 hover:border-indigo-200 hover:shadow-md transition-all duration-300"
+              >
               {/* Rating */}
               <div className="flex items-center gap-1 mb-4">
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -57,7 +60,8 @@ export default function Testimonials() {
                   <p className="text-xs text-gray-500">{testimonial.role}</p>
                 </div>
               </div>
-            </div>
+              </div>
+            </AnimateInView>
           ))}
         </div>
       </div>
