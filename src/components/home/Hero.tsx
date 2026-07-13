@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import { FiArrowRight, FiUsers, FiFolder, FiZap } from "react-icons/fi";
+import { SiTypescript } from "react-icons/si";
 
 export default function Hero() {
   return (
@@ -102,8 +103,8 @@ export default function Hero() {
                 </div>
                 <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 font-bold">
-                      TS
+                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                      <SiTypescript className="w-6 h-6 text-blue-600" />
                     </div>
                     <div>
                       <p className="font-semibold text-gray-900 text-sm">TypeScript</p>
