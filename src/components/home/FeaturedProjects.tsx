@@ -8,63 +8,63 @@ import { getDifficultyColor, formatCategoryName } from "@/utils";
 
 const FEATURED_PROJECTS = [
   {
-    _id: "1",
+    _id: "demo-1",
     title: "E-Commerce Platform",
     shortDescription: "A full-stack e-commerce platform with payment integration and admin dashboard.",
     category: "web-development",
     difficulty: "intermediate",
     requiredSkills: ["Next.js", "TypeScript", "MongoDB", "Stripe"],
-    image: "",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
     owner: { name: "Sakib Rahman" },
   },
   {
-    _id: "2",
+    _id: "demo-2",
     title: "AI Chatbot Assistant",
     shortDescription: "An intelligent chatbot powered by machine learning for customer support.",
     category: "ai-ml",
     difficulty: "advanced",
     requiredSkills: ["Python", "TensorFlow", "FastAPI", "React"],
-    image: "",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop",
     owner: { name: "Fatima Akter" },
   },
   {
-    _id: "3",
+    _id: "demo-3",
     title: "Fitness Tracker App",
     shortDescription: "Cross-platform mobile app for tracking workouts and nutrition goals.",
     category: "mobile-development",
     difficulty: "beginner",
     requiredSkills: ["React Native", "Firebase", "TypeScript"],
-    image: "",
+    image: "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&h=400&fit=crop",
     owner: { name: "Tanvir Hasan" },
   },
   {
-    _id: "4",
+    _id: "demo-4",
     title: "DevOps Pipeline Tool",
     shortDescription: "Automated CI/CD pipeline management tool for modern development teams.",
     category: "devops",
     difficulty: "advanced",
     requiredSkills: ["Docker", "Kubernetes", "Node.js", "AWS"],
-    image: "",
+    image: "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=600&h=400&fit=crop",
     owner: { name: "Nusrat Jahan" },
   },
   {
-    _id: "5",
+    _id: "demo-5",
     title: "Portfolio Website Builder",
     shortDescription: "Drag-and-drop portfolio builder for developers and designers.",
     category: "web-development",
     difficulty: "beginner",
     requiredSkills: ["React", "Tailwind CSS", "Firebase"],
-    image: "",
+    image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=600&h=400&fit=crop",
     owner: { name: "Rafiq Ahmed" },
   },
   {
-    _id: "6",
+    _id: "demo-6",
     title: "Blockchain Voting System",
     shortDescription: "Decentralized voting application built on Ethereum for transparent elections.",
     category: "blockchain",
     difficulty: "advanced",
     requiredSkills: ["Solidity", "Web3.js", "React", "Node.js"],
-    image: "",
+    image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=400&fit=crop",
     owner: { name: "Ayesha Siddique" },
   },
 ];
@@ -93,7 +93,7 @@ export default function FeaturedProjects() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {FEATURED_PROJECTS.map((project) => (
-            <Link key={project._id} href={`/projects/${project._id}`}>
+            <Link key={project._id} href="/explore">
               <Card hover className="h-full flex flex-col">
                 <CardImage src={project.image} alt={project.title} />
                 <CardBody className="flex-1 flex flex-col">
