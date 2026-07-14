@@ -50,6 +50,7 @@ export default function ProjectDetailPage() {
   const [hasApplied, setHasApplied] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [relatedProjects, setRelatedProjects] = useState<IProject[]>([]);
 
   const projectId = params.id as string;
 
@@ -91,6 +92,27 @@ export default function ProjectDetailPage() {
     fetchProject();
     checkApplication();
   }, [fetchProject, checkApplication]);
+
+  const fetchRelatedProjects = useCallback(async () => {
+    if (!project?.category) return;
+    try {
+      const response = await projectService.getProjects({
+        category: project.category,
+        limit: 4,
+      });
+      if (response.success && response.data) {
+        setRelatedProjects(
+          response.data.filter((p) => p._id !== projectId).slice(0, 3)
+        );
+      }
+    } catch {
+      // Silent fail
+    }
+  }, [project?.category, projectId]);
+
+  useEffect(() => {
+    if (project) fetchRelatedProjects();
+  }, [project, fetchRelatedProjects]);
 
   const handleApply = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -511,6 +533,52 @@ export default function ProjectDetailPage() {
           </aside>
         </div>
       </div>
+
+      {/* Related Projects */}
+      {relatedProjects.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            Related Projects
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {relatedProjects.map((rp) => (
+              <Link key={rp._id} href={`/projects/${rp._id}`}>
+                <div className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-lg transition-shadow h-full">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+                      {getCategoryIcon(rp.category)}{" "}
+                      {formatCategoryName(rp.category)}
+                    </span>
+                    <span
+                      className={`text-xs font-medium px-2 py-0.5 rounded-full ${getDifficultyColor(
+                        rp.difficulty
+                      )}`}
+                    >
+                      {rp.difficulty}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-1 line-clamp-1">
+                    {rp.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 line-clamp-2 mb-3">
+                    {rp.shortDescription}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {rp.requiredSkills.slice(0, 3).map((skill) => (
+                      <span
+                        key={skill}
+                        className="text-xs bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-full"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       <ConfirmModal
         open={showDeleteModal}
