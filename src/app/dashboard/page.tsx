@@ -19,6 +19,7 @@ import {
   MonthlyActivityChart,
 } from "@/components/charts";
 import RoleGuard, { AdminBadge, AdminSectionHeader } from "@/components/auth/RoleGuard";
+import ErrorBoundary from "@/components/ui/ErrorBoundary";
 import {
   FiFolder,
   FiSend,
@@ -136,6 +137,7 @@ export default function DashboardPage() {
 
   return (
     <Layout showFooter={false}>
+    <ErrorBoundary>
     <div className="min-h-screen bg-gray-50 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -201,6 +203,7 @@ export default function DashboardPage() {
         )}
       </div>
     </div>
+    </ErrorBoundary>
     </Layout>
   );
 }
