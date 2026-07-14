@@ -2,6 +2,8 @@
 
 A full-stack web application where developers discover, join, and collaborate on open-source projects. Built with Next.js 15, Express.js, and MongoDB Atlas.
 
+**🔗 Live Site:** [https://buildbridge.vercel.app](https://buildbridge.vercel.app)
+
 ![BuildBridge](https://img.shields.io/badge/Next.js-15-black?logo=next.js) ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript) ![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38bdf8?logo=tailwindcss) ![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb) ![Express](https://img.shields.io/badge/Express.js-4.x-000000?logo=express)
 
 ---
@@ -15,6 +17,7 @@ A full-stack web application where developers discover, join, and collaborate on
 - [Environment Variables](#-environment-variables)
 - [API Endpoints](#-api-endpoints)
 - [Deployment](#-deployment)
+- [Future Improvements](#-future-improvements)
 - [Author](#-author)
 - [License](#-license)
 
@@ -263,7 +266,21 @@ NEXT_PUBLIC_API_URL=http://localhost:5000/api
 
 ---
 
-## 👤 Author
+## � Future Improvements
+
+- **Real-time Chat** — In-app messaging between project members using Socket.io
+- **GitHub Integration** — Auto-sync project repos, issues, and pull requests
+- **Team Workspace** — Shared boards, task management, and file sharing
+- **Email Notifications** — Application status updates and project invitations
+- **Advanced Search** — Elasticsearch for full-text search with relevance scoring
+- **File Uploads** — Project images and documents via Cloudinary/S3
+- **Dark Mode** — System-aware theme toggle
+- **Unit & E2E Tests** — Jest + Playwright for comprehensive test coverage
+- **CI/CD Pipeline** — GitHub Actions for automated testing and deployment
+
+---
+
+## �👤 Author
 
 **Sajib Mh** — [GitHub](https://github.com/sajibmh-2026)
 
