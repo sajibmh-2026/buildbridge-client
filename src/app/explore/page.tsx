@@ -67,8 +67,8 @@ function ExploreContent() {
         setTotalPages(response.pagination.totalPages);
         setTotal(response.pagination.total);
       }
-    } catch (error) {
-      console.error("Failed to fetch projects:", error);
+    } catch {
+      // silently handle — user sees empty state
     } finally {
       setLoading(false);
     }

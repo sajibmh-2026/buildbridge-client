@@ -82,7 +82,7 @@ export default function RegisterPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
-              <FiUser className="absolute right-3 top-[42px] text-gray-400 w-5 h-5" />
+              <FiUser className="absolute right-3 top-10.5 text-gray-400 w-5 h-5" />
             </div>
 
             <div className="relative">
@@ -94,7 +94,7 @@ export default function RegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <FiMail className="absolute right-3 top-[42px] text-gray-400 w-5 h-5" />
+              <FiMail className="absolute right-3 top-10.5 text-gray-400 w-5 h-5" />
             </div>
 
             <div className="relative">
@@ -109,7 +109,7 @@ export default function RegisterPage() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-[42px] text-gray-400 hover:text-gray-600 cursor-pointer"
+                className="absolute right-3 top-10.5 text-gray-400 hover:text-gray-600 cursor-pointer"
               >
                 {showPassword ? <FiEyeOff className="w-5 h-5" /> : <FiEye className="w-5 h-5" />}
               </button>
@@ -124,7 +124,7 @@ export default function RegisterPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
-              <FiLock className="absolute right-3 top-[42px] text-gray-400 w-5 h-5" />
+              <FiLock className="absolute right-3 top-10.5 text-gray-400 w-5 h-5" />
             </div>
 
             <div className="relative">
@@ -136,7 +136,7 @@ export default function RegisterPage() {
                 value={photo}
                 onChange={(e) => setPhoto(e.target.value)}
               />
-              <FiImage className="absolute right-3 top-[42px] text-gray-400 w-5 h-5" />
+              <FiImage className="absolute right-3 top-10.5 text-gray-400 w-5 h-5" />
             </div>
 
             {/* Skills Selection */}

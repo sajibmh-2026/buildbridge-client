@@ -86,7 +86,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <FiMail className="absolute right-3 top-[42px] text-gray-400 w-5 h-5" />
+              <FiMail className="absolute right-3 top-10.5 text-gray-400 w-5 h-5" />
             </div>
 
             <div className="relative">
@@ -101,7 +101,7 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-[42px] text-gray-400 hover:text-gray-600 cursor-pointer"
+                className="absolute right-3 top-10.5 text-gray-400 hover:text-gray-600 cursor-pointer"
               >
                 {showPassword ? <FiEyeOff className="w-5 h-5" /> : <FiEye className="w-5 h-5" />}
               </button>
